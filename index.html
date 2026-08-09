@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Blockchain Nexus Lab</title>
+<meta name="description" content="AI・データ可視化・ブロックチェーンの個人ラボ。リアルタイム防災・交通マップなどを公開しています。">
+<meta property="og:title" content="AI Blockchain Nexus Lab">
+<meta property="og:description" content="AI・データ可視化・ブロックチェーンの個人ラボ">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+<style>
+:root {
+  --bg: #0b0e14;
+  --panel: #141926;
+  --panel2: #1a2133;
+  --text: #e8ecf4;
+  --sub: #8b96ad;
+  --accent: #4da3ff;
+  --accent2: #7ee0c3;
+  --border: #232c42;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  line-height: 1.7; min-height: 100vh;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ヘッダー */
+header { padding: 72px 0 40px; text-align: center; position: relative; overflow: hidden; }
+header::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 300px at 30% 0%, rgba(77,163,255,.12), transparent),
+    radial-gradient(ellipse 600px 300px at 70% 10%, rgba(126,224,195,.08), transparent);
+  pointer-events: none;
+}
+.logo { font-size: 2.5em; font-weight: 700; letter-spacing: .02em; }
+.logo .grad {
+  background: linear-gradient(120deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tagline { color: var(--sub); margin-top: 10px; font-size: 1.02em; }
+
+/* セクション */
+section { padding: 26px 0 8px; }
+h2 { font-size: 1.05em; color: var(--sub); font-weight: 600;
+     letter-spacing: .14em; text-transform: uppercase;
+     border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 22px; }
+
+/* カードグリッド */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+  padding: 22px; text-decoration: none; color: var(--text); display: block;
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--panel2); }
+.card .emoji { font-size: 2em; display: block; margin-bottom: 10px; }
+.card h3 { font-size: 1.12em; margin-bottom: 6px; }
+.card p { color: var(--sub); font-size: .9em; }
+.card .tags { margin-top: 12px; }
+.tag {
+  display: inline-block; font-size: .72em; color: var(--accent2);
+  border: 1px solid rgba(126,224,195,.35); border-radius: 20px;
+  padding: 1px 10px; margin-right: 6px;
+}
+.card.soon { opacity: .55; border-style: dashed; cursor: default; }
+.card.soon:hover { transform: none; border-color: var(--border); background: var(--panel); }
+
+footer { color: var(--sub); text-align: center; padding: 48px 0 34px; font-size: .85em; }
+footer a { color: var(--sub); }
+@media (max-width: 600px) {
+  header { padding: 48px 0 28px; }
+  .logo { font-size: 1.7em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="logo">AI <span class="grad">Blockchain</span> Nexus Lab</div>
+  <p class="tagline">AI・データ可視化・ブロックチェーンの実験場。<br>公共データをリアルタイムに集めて、見て楽しいかたちにしています。</p>
+ </div>
+</header>
+
+<div class="wrap">
+ <section>
+  <h2>Projects</h2>
+  <div class="grid" id="cards"></div>
+ </section>
+</div>
+
+<footer>
+ <div class="wrap">© AI Blockchain Nexus Lab</div>
+</footer>
+
+<script>
+// ============================================================
+// コンテンツを増やすときはこの配列に1エントリ追加するだけ。
+//   emoji: カードのアイコン / title: 名前 / desc: 説明
+//   url:   リンク先 (null にすると「準備中」表示)
+//   tags:  小さなラベルの配列
+// ============================================================
+const PROJECTS = [
+  {
+    emoji: "🌏",
+    title: "関西エアウォッチ 3D",
+    desc: "自宅アンテナで受信した航空機のライブ位置に、新幹線・在来線・高速道路の運行/道路状況、台風・気象警報・津波・気圧配置まで重ねられる3Dマップ。",
+    url: "https://air.aiblockchainnexuslab.tech/3d.html",
+    tags: ["ADS-B", "リアルタイム", "防災", "CesiumJS"]
+  },
+  {
+    emoji: "🚄",
+    title: "新幹線 運行状況マップ",
+    desc: "全国の新幹線の経路と運行状況を区間単位で色分け表示。JR各社の発表本文と計画運休情報もこの1ページで確認できます。",
+    url: "https://air.aiblockchainnexuslab.tech/shinkansen.html",
+    tags: ["鉄道", "リアルタイム", "Leaflet"]
+  },
+  {
+    emoji: "🌱",
+    title: "次のコンテンツ",
+    desc: "準備中です。お楽しみに。",
+    url: null,
+    tags: ["coming soon"]
+  },
+];
+
+const grid = document.getElementById("cards");
+for (const p of PROJECTS) {
+  const a = document.createElement(p.url ? "a" : "div");
+  a.className = "card" + (p.url ? "" : " soon");
+  if (p.url) a.href = p.url;
+  a.innerHTML = `<span class="emoji">${p.emoji}</span>
+    <h3>${p.title}</h3><p>${p.desc}</p>
+    <div class="tags">${(p.tags||[]).map(t => `<span class="tag">${t}</span>`).join("")}</div>`;
+  grid.appendChild(a);
+}
+</script>
+</body>
+</html>
