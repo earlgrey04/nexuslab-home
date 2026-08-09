@@ -66,6 +66,9 @@ h2 { font-size: 1.05em; color: var(--sub); font-weight: 600;
   border: 1px solid rgba(126,224,195,.35); border-radius: 20px;
   padding: 1px 10px; margin-right: 6px;
 }
+.card .sub { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.card .sub a { color: var(--accent); font-size: .85em; text-decoration: none; }
+.card .sub a:hover { text-decoration: underline; }
 .card.soon { opacity: .55; border-style: dashed; cursor: default; }
 .card.soon:hover { transform: none; border-color: var(--border); background: var(--panel); }
 
@@ -106,18 +109,13 @@ footer a { color: var(--sub); }
 // ============================================================
 const PROJECTS = [
   {
-    emoji: "🌏",
-    title: "関西エアウォッチ 3D",
-    desc: "自宅アンテナで受信した航空機のライブ位置に、新幹線・在来線・高速道路の運行/道路状況、台風・気象警報・津波・気圧配置まで重ねられる3Dマップ。",
+    emoji: "🗾",
+    title: "日本ライブマップ",
+    desc: "自宅アンテナで受信した航空機のライブ位置に、全国の新幹線・在来線・高速道路の運行/道路状況、台風・気象警報・津波・気圧配置まで1画面に重ねられる3D総合ライブマップ。",
     url: "https://air.aiblockchainnexuslab.tech/3d.html",
-    tags: ["ADS-B", "リアルタイム", "防災", "CesiumJS"]
-  },
-  {
-    emoji: "🚄",
-    title: "新幹線 運行状況マップ",
-    desc: "全国の新幹線の経路と運行状況を区間単位で色分け表示。JR各社の発表本文と計画運休情報もこの1ページで確認できます。",
-    url: "https://air.aiblockchainnexuslab.tech/shinkansen.html",
-    tags: ["鉄道", "リアルタイム", "Leaflet"]
+    tags: ["ADS-B", "鉄道", "道路", "防災", "3D"],
+    sub: { label: "⚡ 2D軽量版（新幹線のみ・スマホでサクサク）",
+           url: "https://air.aiblockchainnexuslab.tech/shinkansen.html" }
   },
   {
     emoji: "🌱",
@@ -130,12 +128,19 @@ const PROJECTS = [
 
 const grid = document.getElementById("cards");
 for (const p of PROJECTS) {
-  const a = document.createElement(p.url ? "a" : "div");
+  const a = document.createElement("div");
   a.className = "card" + (p.url ? "" : " soon");
-  if (p.url) a.href = p.url;
   a.innerHTML = `<span class="emoji">${p.emoji}</span>
     <h3>${p.title}</h3><p>${p.desc}</p>
-    <div class="tags">${(p.tags||[]).map(t => `<span class="tag">${t}</span>`).join("")}</div>`;
+    <div class="tags">${(p.tags||[]).map(t => `<span class="tag">${t}</span>`).join("")}</div>` +
+    (p.sub ? `<div class="sub"><a href="${p.sub.url}">${p.sub.label}</a></div>` : "");
+  if (p.url) {
+    a.style.cursor = "pointer";
+    a.addEventListener("click", e => {
+      if (e.target.closest(".sub")) return;  // サブリンクは自身の遷移に任せる
+      location.href = p.url;
+    });
+  }
   grid.appendChild(a);
 }
 </script>
