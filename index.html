@@ -118,7 +118,7 @@ const PROJECTS = [
            url: "https://air.aiblockchainnexuslab.tech/shinkansen.html" }
   },
   {
-    emoji: "🛰️",
+    emoji: "✈️",
     title: "x402 フライトデータAPI",
     desc: "自宅アンテナで受信した航空機のライブ位置と航跡を、x402プロトコル(HTTP 402 Payment Required + USDC)で世界中のAIエージェントに1回0.15円から従量販売する実験。アカウントもAPIキーも不要、決済はBase上で数秒。リアルタイム/履歴/1時間見放題パスの3プランで、CoinbaseのBazaar(エージェント向けカタログ)にも掲載中。",
     url: "https://x402-adsb.x402-adsb-worker.workers.dev/",
@@ -141,20 +141,27 @@ const PROJECTS = [
     tags: ["生成AI", "動画自動生成", "YouTube", "note", "X自動投稿"]
   },
   {
-    emoji: "📳",
+    emoji: "📷",
     title: "地震検知カメラと防災速報ハブ",
     desc: "P2P地震情報のリアルタイム配信と気象庁の警報データを自宅サーバーで24時間監視する自作の防災システム。カメラ映像を常時リングバッファ録画しておき、緊急地震速報や設定震度以上の揺れを検知すると「揺れの前〜後の数分間」を自動で切り出してイベント保存、機器が壊れても映像が残るよう別マシンへ即時退避します。速報はLINEへ自動配信するほか、自作の時計ディスプレイへの赤画面割り込み、揺れの後に自宅の機器一式を自動点検して報告するヘルスチェックまで実行。津波予報・気象警報の監視にも対応しています。",
     url: null,
     tags: ["防災", "緊急地震速報", "カメラ", "LINE通知", "自宅サーバー"]
   },
   {
-    emoji: "💬",
+    emoji: "<span style='display:inline-flex;width:1.1em;height:1.1em;background:#06C755;color:#fff;border-radius:.24em;align-items:center;justify-content:center;font-weight:800;font-size:.9em;font-family:sans-serif'>L</span>",
     title: "LINE公式アカウントの自動運用基盤",
     desc: "オープンソースのLINE公式アカウントCRM「LINE Harness」を自宅サーバーで完全セルフホストし、サーバー代ゼロで運用。ステップ配信・セグメント配信・タグ管理・LIFFフォームといったCRM機能に加えて、MCPサーバー経由でAI(Claude Code)から全機能を操作できるのが特徴です。この基盤の上で、季節の自然情報(ホタル観察情報)の配信や、上の防災システムと連動した地震・津波・気象警報のLINE速報配信を自動運用しています。",
     url: null,
     tags: ["LINE", "CRM", "セルフホスト", "MCP", "自動配信"],
     sub: { label: "🔗 利用OSS: LINE Harness(GitHub)",
            url: "https://github.com/Shudesu/line-harness-oss" }
+  },
+  {
+    emoji: "🪙",
+    title: "ビットコイン全自動積立システム",
+    desc: "自宅サーバーで毎朝動く、完全オンチェーンのビットコイン積立(DCA)システム。日本円ステーブルコインJPYCを原資に、Avalanche上で毎日一定額のBTC.bを自動購入し、購入結果は毎日Discordへ報告。積立の進捗や円換算評価額、ガス残量まで見えるダッシュボードを備えています。一定量に達したらブリッジを介さずネイティブBTCへ償還してコールドウォレットに退避する出口までを設計済みで、価格のペグ乖離検知・償還先コントラクトの変更検知・手動キルスイッチなど、無人運転を安全に続けるための多層ガードを実装。取引所の積立サービスより手数料を抑えつつ、資産を自己管理(セルフカストディ)できるのが特徴です。",
+    url: null,
+    tags: ["Bitcoin", "DCA", "Avalanche", "JPYC", "セルフカストディ"]
   },
   {
     emoji: "🌱",
